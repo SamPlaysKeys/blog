@@ -5,6 +5,7 @@ draft: true
 categories:
     - ADHD
     - Productivity
+image: cover.jpg
 ---
 
 Another day, another productivity app. Another JavaScript framework. Another note-taking system that's going to finally, *finally* be the one that gets my chaotic ADHD brain organized.

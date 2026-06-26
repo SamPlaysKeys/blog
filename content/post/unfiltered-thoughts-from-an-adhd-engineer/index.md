@@ -5,6 +5,7 @@ draft: true
 categories:
     - ADHD
     - Technology
+image: cover.jpg
 ---
 
 ## The Silent Struggle of ADHD

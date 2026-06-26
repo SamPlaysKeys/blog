@@ -5,6 +5,7 @@ draft: true
 categories:
     - ADHD
     - Productivity
+image: cover.jpg
 ---
 
 ## The ADHD Prioritization Problem
