@@ -18,8 +18,8 @@ SortBy              = "default"
     lastUpdated = ":date_full"
 
 [sidebar]
-    emoji    = "🍥"
-    subtitle = "Thoughts, Ideas, Opinions, and mistakes: An ADHD consultant's adventures"
+    emoji    = "🍁"
+    subtitle = "Thoughts, ideas, opinions, and mistakes: An ADHD consultant's adventures"
     avatar   = "img/SamFlemingHeadshot.jpg"
 
 [article]
