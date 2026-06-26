@@ -1,7 +1,7 @@
 ---
 title: "Unfiltered thoughts from an ADHD Engineer"
 date: 2025-03-09
-draft: true
+draft: false
 categories:
     - ADHD
     - Technology

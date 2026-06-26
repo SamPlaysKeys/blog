@@ -1,7 +1,7 @@
 ---
 title: "AI isn't an option; it's a requirement"
 date: 2025-12-06
-draft: true
+draft: false
 categories:
     - AI
     - Technology

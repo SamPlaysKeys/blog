@@ -1,7 +1,7 @@
 ---
 title: "The wish to be Wild-Built"
 date: 2025-02-11
-draft: true
+draft: false
 categories:
     - Opinions
 ---

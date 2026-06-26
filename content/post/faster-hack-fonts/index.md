@@ -1,7 +1,7 @@
 ---
 title: "Faster Hack Fonts"
 date: 2025-10-01
-draft: true
+draft: false
 categories:
     - Development
     - Tools

@@ -1,7 +1,7 @@
 ---
 title: "What it takes to get hired"
 date: 2025-01-19
-draft: true
+draft: false
 categories:
     - Career
     - Technology
