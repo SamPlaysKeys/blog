@@ -24,7 +24,7 @@ But like most simple things, the devil is in the details.
 
 Let me break this down because when I first wrote this little equation, I thought I was being clever, but it took me months to actually understand what I meant by my own system.
 
-### Understanding Impact
+#### Understanding Impact
 
 Impact is supposed to be straightforward—how much does this thing matter? But ADHD brains are terrible at estimating impact because we're either catastrophizing ("if I don't respond to this email immediately, everyone will think I'm unprofessional and I'll lose my job and end up homeless") or minimizing ("this is probably fine, someone else will handle it").
 
@@ -35,7 +35,7 @@ So I had to get really specific about what impact means. I use a 1-3 scale:
 
 The key insight for me was realizing that "important to someone else" doesn't automatically make something high impact for me. My manager might think it's critical that I update that spreadsheet, but if it doesn't actually move any needles that matter, it's probably a 1.
 
-### Rethinking Effort
+#### Rethinking Effort
 
 Effort is where ADHD gets really weird, because our effort estimation is completely shot. Tasks that should take twenty minutes somehow expand to consume entire afternoons. Meanwhile, complex problems that should take days sometimes get solved during a random burst of hyperfocus.
 
@@ -48,7 +48,7 @@ Here's the thing about the Impact - Effort calculation: it's designed to surface
 
 But ADHD brains love to procrastinate on Impact 3, Effort 3 tasks. They're important but hard, so we avoid them, which makes them more urgent, which makes them more stressful, which makes them feel even harder. It's a vicious cycle.
 
-### The Urgency Reality Check
+#### The Urgency Reality Check
 
 That's where the Urgency factor comes in. I use a 0-3 scale:
 - Urgency 0: No particular deadline
@@ -60,7 +60,7 @@ The Importance + Urgency = Priority calculation is basically the Eisenhower Matr
 
 Someone sending you a "quick question" with a red exclamation mark doesn't make it actually urgent. But a production outage that's losing the company money? That's legitimately urgent.
 
-### Finding the Sweet Spot
+#### Finding the Sweet Spot
 
 The magic happens when you start looking at tasks that are high importance but low urgency. These are your Impact 3, Effort 1 or 2 tasks that don't have artificial deadline pressure. They're the investments that pay off over time, but they're exactly the kind of thing ADHD brains will ignore until they become urgent.
 
