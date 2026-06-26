@@ -19,7 +19,7 @@ SortBy              = "default"
 
 [sidebar]
     emoji    = "🍥"
-    subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    subtitle = "Thoughts, Ideas, Opinions, and mistakes: An ADHD consultant's adventures"
     avatar   = "img/SamFlemingHeadshot.jpg"
 
 [article]
