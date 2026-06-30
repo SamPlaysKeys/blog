@@ -19,15 +19,15 @@ And the frustrating part isn’t just Tenor being unplugged; it’s the pattern 
 
 Google has a long, well-documented habit of killing products that people actually use. Not experimental side projects, but real tools embedded in workflows. I'm sure many people will remember how "Gmail" was in an open Beta test for an absurdly long time, but there have been many other projects (both Google-created and projects acquired along the way) that Google has sunset. Two that strike partiucularly close to my heart:
 
-    Google Domains: one of the cleanest, least annoying domain registrars out there. No upsell circus, no dark patterns—just buy a domain and move on with your life. Gone.
+**Google Domains:** one of the cleanest, least annoying domain registrars out there. No upsell circus, no dark patterns—just buy a domain and move on with your life. Gone.
 
 ![Google Domains Logo](Google_Domains_Logo.png)
 
-    Google Podcasts: easily the most straightforward podcast app. No algorithmic nonsense, no clutter, just a chronological feed of what you subscribed to. Also gone.
+**Google Podcasts:** easily the most straightforward podcast app. No algorithmic nonsense, no clutter, just a chronological feed of what you subscribed to. Also gone.
 
 ![Google Podcasts Logo](Google_Podcasts_Logo.jpg)
 
-    And now Tenor: a foundational piece of internet culture quietly pulled out from under developers.
+**And now Tenor:** a foundational piece of internet culture quietly pulled out from under developers.
 
 ![Tenor Webpage](Tenor_Webpage.png)
 
