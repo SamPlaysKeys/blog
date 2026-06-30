@@ -6,7 +6,7 @@ categories:
     - Technology
     - News
     - Business
-image: Google-Images-Tenor.jpg
+image: Google-Images-Tenor.png
 ---
 
 Google killed the Tenor gif API today, and I wish I could say that I was surprised.
