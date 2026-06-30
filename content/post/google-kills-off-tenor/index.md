@@ -1,7 +1,7 @@
 ---
 title: "Google kills off Tenor Gif integrations"
 date: 2026-06-30
-draft: true
+draft: false
 categories:
     - Technology
     - News
