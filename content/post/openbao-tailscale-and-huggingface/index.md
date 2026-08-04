@@ -1,12 +1,10 @@
 ---
-title: "OpenBao And Tailscale; An Answer To The HuggingFace breach"
+title: "A Review of The HuggingFace breach"
 date: 2026-08-03
 draft: false
 categories:
     - Tailscale
     - News
-    - Security
-    - Automation
 ---
 
 # Executive Brief: Dynamic Secrets Management (OpenBao / Vault)
