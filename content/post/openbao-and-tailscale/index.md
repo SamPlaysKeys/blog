@@ -26,21 +26,11 @@ That question led me to OpenBao and a pattern for managing secrets that protects
 
 ---
 
-## What Is It?
+## The Current Environment
 
-### The modern home lab stack
+Most self-hosted environments start with containerization. Docker and Podman let us package applications alongside their dependencies and run them in isolation. That ecosystem gives us tools like Paperless-ngx for digitizing mail, Immich for photo management, Nextcloud for file storage, and Forgejo for code hosting. Rather than managing containers individually on the host OS, we define multi-container stacks declaratively using Docker Compose.
 
-Most self-hosted environments start with containerization. Docker and Podman let us package applications alongside their dependencies and run them in isolation. That ecosystem gives us tools like Paperless-ngx for digitizing mail, Immich for photo management, Nextcloud for file storage, and Forgejo for code hosting.
-
-Rather than managing containers individually on the host OS, we define multi-container stacks declaratively using Docker Compose.
-
-### The sidecar pattern
-
-To network these containers securely, Tailscale is my go-to. The cleanest pattern for container networking on a private tailnet is the sidecar deployment.
-
-Instead of exposing ports to the host or giving containers direct LAN access, you run a lightweight Tailscale sidecar container alongside your application in the Compose stack. All incoming and outgoing traffic for that app routes strictly through your private tailnet. You get ACL controls and zero public ports exposed to the internet.
-
-### The secret delivery flaw
+To network these containers securely, Tailscale is my go-to. The cleanest pattern for container networking on a private tailnet is called a "sidecar deployment". Instead of exposing ports to the host or giving containers direct LAN access, you run a lightweight Tailscale sidecar container alongside your application in the Compose stack. All incoming and outgoing traffic for that app routes strictly through your private tailnet. You get ACL controls and zero public ports exposed to the internet.
 
 The catch with this pattern is authentication. Tailscale requires an auth key to register a device on your network, which means that key has to live inside the container deployment.
 
@@ -50,29 +40,15 @@ In practice, that key usually sits in one of two places:
 
 In both cases, you are passing a static, long-lived credential into the environment.
 
-### The threat model
+Most people pull third-party container images from public registries without auditing every upstream dependency. If a dependency in your stack is compromised, an attacker gets shell access inside that container. If your Tailscale auth key sits in an environment variable or a local `.env` file, the compromise isn't contained to that single application. An attacker extracts the static key and can spin up malicious nodes from anywhere, attaching them directly to your private tailnet. From there, they can sniff traffic, spoof internal services, and pivot laterally across your network. Features like Tailnet Lock or MAC filtering can help, but the real goal should be making the credential useless if stolen.
 
-Most people pull third-party container images from public registries without auditing every upstream dependency. If a dependency in your stack is compromised, an attacker gets shell access inside that container.
+The fix: *moving secrets out of flat files and into a dedicated secrets engine.*
 
-If your Tailscale auth key sits in an environment variable or a local `.env` file, the compromise isn't contained to that single application. An attacker extracts the static key and can spin up malicious nodes from anywhere, attaching them directly to your private tailnet. From there, they can sniff traffic, spoof internal services, and pivot laterally across your network.
+This is where OpenBao, and its predecessor HashiCorp Vault, come in. To understand OpenBao, it helps to look at Vault's history. HashiCorp Vault was the industry standard for secret management and was fully open-source under the Mozilla Public License up through version 1.14. When HashiCorp shifted Vault to a commercial Business Source License in version 1.15, the Linux Foundation launched OpenBao — a community-governed, open-source fork built directly from Vault 1.14. But OpenBao isn't just an encrypted key-value store. It acts as an interactive security broker for authentication, identity, and access control.
 
-Features like Tailnet Lock or MAC filtering help, but the real goal should be making the credential useless if stolen.
+Storing static credentials inside OpenBao is an improvement over `.env` files, but it doesn't solve the core problem. If a breached container queries OpenBao for a permanent credential, an attacker can still steal it. However, OpenBao isn't just an encrypted key-value store. It acts as an interactive security broker for authentication, identity, and access control. Instead of holding static secrets, OpenBao brokers access directly with target platforms (AWS, database clusters, networking providers). 
 
-### Enter OpenBao
-
-The fix is moving secrets out of flat files and into a dedicated secrets engine.
-
-To understand OpenBao, it helps to look at Vault's history. HashiCorp Vault was the industry standard for secret management and was fully open-source under the Mozilla Public License up through version 1.14. When HashiCorp shifted Vault to a commercial Business Source License in version 1.15, the Linux Foundation launched OpenBao — a community-governed, open-source fork built directly from Vault 1.14.
-
-OpenBao isn't just an encrypted key-value store. It acts as an interactive security broker for authentication, identity, and access control.
-
-### Static vs. dynamic secrets
-
-Storing static credentials inside OpenBao is an improvement over `.env` files, but it doesn't solve the core problem. If a breached container queries OpenBao for a permanent credential, an attacker can still steal it.
-
-OpenBao's real utility lies in dynamic key generation.
-
-Instead of holding static secrets, OpenBao brokers access directly with target platforms (AWS, database clusters, networking providers). When an application requests access, OpenBao:
+When an application requests access, OpenBao:
 - Communicates with the provider API.
 - Generates a short-lived, single-use credential on the fly.
 - Passes the credential to the container with a strict TTL.
@@ -81,17 +57,17 @@ If a container is breached after boot, the credential used to start it is alread
 
 ---
 
-## So What?
+## New Day, New Threats
 
 The July 2026 Hugging Face incident is a clear example of why static secrets are a dangerous default.
 
-### What happened
+#### What happened
 
 On July 16, 2026, Hugging Face disclosed unauthorized access to internal datasets. Five days later, OpenAI confirmed that an autonomous AI agent running inside an evaluation sandbox had escaped its environment, executed 17,000+ actions over a weekend, exploited the data-processing pipeline, and harvested internal service credentials — ultimately accessing cloud infrastructure and internal datasets.
 
 Public models and Spaces were untouched, and Hugging Face handled the response cleanly (revoke, evict, rebuild). But the post-mortem consensus among security teams was unanimous: the attack method was completely conventional.
 
-### Old playbook, new attacker
+#### Old playbook, new attacker
 
 As GitGuardian noted in their analysis, if you strip the AI agent from the incident report, the remaining pages read like any breach retrospective from the last decade. The breach didn't rely on exotic zero-days — it succeeded on reusable credentials and flat internal permissions.
 
@@ -100,7 +76,7 @@ Industry metrics highlight how widespread this vulnerability is:
 - 64% of valid secrets first discovered in 2022 were still active in early 2026.
 - Credential-based breaches take an average of 186 days to identify, because a valid credential looks like legitimate traffic.
 
-### Applying the lesson
+#### Applying the lesson
 
 Look at your own environments. Do you have OpenAI or Anthropic API keys sitting in flat config files or `.cursor` directories? Tailscale auth keys in Compose `.env` files? Database passwords saved in CI/CD pipeline variables? Hugging Face tokens embedded in training scripts?
 
@@ -110,15 +86,9 @@ Dynamic secrets eliminate that vector. If a Tailscale auth key is minted on dema
 
 ---
 
-## Now What?
+## Putting it into practice
 
-When implementing this, keep one principle in mind:
-
-> **The best security architecture is the one you can actually maintain.**
-
-I don't run a complex dynamic pipeline for every single container in my lab. If an architecture is so tedious that you bypass it when you're tired on a Sunday night, it offers zero real protection.
-
-Tier your approach based on risk.
+When evaluating the extent that you want to deploy this, you can tier your approach based on risk.
 
 ### Tier 1: Centralize static secrets in OpenBao
 
@@ -176,8 +146,14 @@ The Hugging Face incident generated headlines because an AI agent executed it. B
 
 Moving secrets out of plain-text files and adopting dynamic credentials where it matters limits what an attacker can do, regardless of who or what that attacker happens to be.
 
+However, the most important thing to rememeber when implementing this is:
+
+> **The best security architecture is the one you can actually maintain.**
+
+I don't run a complex dynamic pipeline for every single container in my lab. If an architecture is so tedious that you bypass it when you're tired on a Sunday night, it offers zero real protection. Go with what you know, try your best, and be safe.
+
 ---
 
 *Slides, code examples, and the OpenBao Tailscale plugin are available on GitHub at `@SamPlaysKeys`. You can reach me directly at `info@samplayskeys.com`.*
 
-*This post is based on a presentation prepared for SELF 2026. Incident details reflect public disclosures as of late July 2026.*
+*This post is based on a presentation prepared for SouthEast Linux Fest 2026. Incident details reflect public disclosures as of late July 2026.*

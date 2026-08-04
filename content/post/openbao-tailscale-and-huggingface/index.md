@@ -2,6 +2,9 @@
 title: "A Review of The HuggingFace breach"
 date: 2026-08-03
 draft: false
+_build:
+    list: never
+    render: always
 categories:
     - Tailscale
     - News
