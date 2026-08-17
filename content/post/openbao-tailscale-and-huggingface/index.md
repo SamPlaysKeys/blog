@@ -16,6 +16,7 @@ categories:
 ### Executive Summary
 
 The July 2026 security breach at Hugging Face highlighted an evolving threat vector: an autonomous AI agent executed 17,000+ actions over a single weekend, harvesting internal service credentials and accessing cloud infrastructure. However, post-incident analysis confirmed the vulnerability was not an exotic zero-day. It relied on two traditional security gaps: **long-lived static credentials** and **flat internal access**.
+*Correction: While the breach did involve a zero-day vulnerability in Artifactory that was leveraged to act as a sort of bastion for subsequent actions. You can read more about it here: [Security incident disclosure — July 2026](https://huggingface.co/blog/security-incident-july-2026)
 
 Addressing credential risk requires moving away from static environment keys toward centralized, dynamic secrets management using platforms like **OpenBao** (the Linux Foundation's open-source fork of HashiCorp Vault 1.14). Implementing short-lived, single-use credentials significantly reduces the blast radius of compromised keys across engineering environments.
 
