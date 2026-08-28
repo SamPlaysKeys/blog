@@ -18,9 +18,9 @@ SortBy              = "default"
     lastUpdated = ":date_full"
 
 [sidebar]
-    emoji    = "🍁"
+    emoji    = "🎙️"
     subtitle = "Thoughts, ideas, opinions, and mistakes: An ADHD consultant's adventures"
-    avatar   = "img/SamFlemingHeadshot.jpg"
+    avatar   = "Speaking_Tailscale_Up.png"
 
 [article]
     headingAnchor = false
